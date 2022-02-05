@@ -1,0 +1,38 @@
+name: wakemeup
+version: '1.0.0'
+summary: WakeMeUp is a tiny Wake-On-Lan utility to wake up a wol device in standby
+description: |
+   Wake-On-Lan is a computer networking standard that allows a computer to be 
+   turned on or awakened by a network message.  The computer must be configured
+   to enable Wake-On-Lan and be in a state where the network card is montiored.
+   This is usually in the standby or sleep state.
+
+grade: stable
+confinement: strict
+base: core18
+
+# Enable LZO compression for faster startup
+compression: lzo
+
+apps:
+  wakemeup:
+    command: bin/java -Djava.util.prefs.userRoot="$SNAP_USER_DATA" -jar $SNAP/jar/wakemeup.jar
+
+parts:
+  library:
+    plugin: maven
+    source: https://github.com/frossm/library.git
+    source-type: git
+    source-tag: 'v2021.10.24'
+    maven-options: [install]
+
+  wakemeup:
+    plugin: maven
+    source: https://github.com/frossm/wakemeup.git
+    source-branch: master
+    source-type: git
+    after: [library]
+
+plugs:
+   rpncalc-network:
+      interface: network
