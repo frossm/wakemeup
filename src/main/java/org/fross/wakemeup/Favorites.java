@@ -45,8 +45,10 @@ public class Favorites {
 	 * 
 	 * @param name
 	 */
-	public static void addName(String name) {
-		Scanner scanner = new Scanner(System.in);
+	public static boolean addName(String name) {
+		boolean cancelOperation = false;
+		String mac = "";
+		String broadcastIP = "";
 
 		// Make the name non-case sensitive
 		name = name.trim().toLowerCase();
@@ -56,19 +58,36 @@ public class Favorites {
 		// Ensure the name doesn't already exist
 		if (nameExists(name) == true) {
 			Output.printColorln(Ansi.Color.RED, "ERROR: '" + name + "' already exists");
-
-		} else {
-			// Input information from user
-			Output.printColor(Ansi.Color.YELLOW, "Enter MAC Address:  ");
-			String mac = scanner.nextLine();
-			Output.printColor(Ansi.Color.YELLOW, "Enter Broadcast Address (ex: 10.0.0.255):  ");
-			String broadcastIP = scanner.nextLine();
-
-			// Add name to preferences in format: macAddress!broadcastIP
-			prefs.put(name, mac + "!" + broadcastIP);
+			return false;
 		}
 
+		// Input information from user
+		Scanner scanner = new Scanner(System.in);
+		Output.printColor(Ansi.Color.YELLOW, "Enter MAC Address (blank will cancel):  ");
+		mac = scanner.nextLine();
+		if (mac.isEmpty()) {
+			cancelOperation = true;
+		}
+
+		if (cancelOperation == false) {
+			Output.printColor(Ansi.Color.YELLOW, "Enter Broadcast Address (ex: 10.0.0.255):  ");
+			broadcastIP = scanner.nextLine();
+			if (broadcastIP.isBlank()) {
+				cancelOperation = true;
+			}
+		}
+		
 		scanner.close();
+
+		// Add name to preferences in format: macAddress!broadcastIP
+		if (cancelOperation == false) {
+			prefs.put(name, mac + "!" + broadcastIP);
+			return true;
+
+		} else {
+			Output.printColor(Ansi.Color.RED, "Adding Favorite was Canceled");
+			return false;
+		}
 
 	}
 

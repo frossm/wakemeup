@@ -51,6 +51,7 @@ public class Main {
 		final String PROPERTIES_FILE = "app.properties";
 		final int DESTPORT = 9;
 		int optionEntry;
+		boolean addSuccessful = true;
 
 		String broadcastIP = "";
 		String macAddress = "";
@@ -135,7 +136,8 @@ public class Main {
 
 		// Must have one favorite name entered
 		if (args.length - optG.getOptind() < 1) {
-			Output.printColorln(Ansi.Color.RED, "ERROR: At least one favorite name must be provided");
+			Output.printColorln(Ansi.Color.RED, "ERROR: At least one favorite name must be provided\n");
+			Help.Display();
 			System.exit(1);
 		}
 
@@ -149,21 +151,23 @@ public class Main {
 
 				// If the favorite doesn't exist, add it
 				if (Favorites.nameExists(name) == false) {
-					Favorites.addName(name);
+					addSuccessful = Favorites.addName(name);
 				}
 
-				// Pull info from preferences and execute
-				String[] nameDetail = Favorites.getNameDetails(name);
-				macAddress = nameDetail[0];
-				broadcastIP = nameDetail[1];
+				if (addSuccessful == true) {
+					// Pull info from preferences and execute
+					String[] nameDetail = Favorites.getNameDetails(name);
+					macAddress = nameDetail[0];
+					broadcastIP = nameDetail[1];
 
-				Output.printColorln(Ansi.Color.WHITE, "\nWaking up " + name);
-				Output.printColorln(Ansi.Color.CYAN, "  MAC:          " + macAddress);
-				Output.printColorln(Ansi.Color.CYAN, "  Broadcast IP: " + broadcastIP);
-				Output.printColorln(Ansi.Color.CYAN, "  Port:         " + DESTPORT);
+					Output.printColorln(Ansi.Color.WHITE, "\nWaking up " + name);
+					Output.printColorln(Ansi.Color.CYAN, "  MAC:          " + macAddress);
+					Output.printColorln(Ansi.Color.CYAN, "  Broadcast IP: " + broadcastIP);
+					Output.printColorln(Ansi.Color.CYAN, "  Port:         " + DESTPORT);
 
-				// Send the magic packet
-				WakeOnLan.wakeDevice(macAddress, broadcastIP, DESTPORT);
+					// Send the magic packet
+					WakeOnLan.wakeDevice(macAddress, broadcastIP, DESTPORT);
+				}
 			}
 
 		} catch (ArrayIndexOutOfBoundsException ex) {

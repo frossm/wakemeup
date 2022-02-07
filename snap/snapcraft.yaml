@@ -1,5 +1,5 @@
 name: wakemeup
-version: '1.0.0'
+version: '1.1.0'
 summary: WakeMeUp is a tiny Wake-On-Lan utility to wake up a wol device in standby
 description: |
    Wake-On-Lan is a computer networking standard that allows a computer to be 

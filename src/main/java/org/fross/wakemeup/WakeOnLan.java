@@ -29,7 +29,6 @@ package org.fross.wakemeup;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.util.HexFormat;
 
 import org.fross.library.Output;
 
@@ -40,43 +39,39 @@ public class WakeOnLan {
 	 * 
 	 * Wake-On-Lan Reference: https://en.wikipedia.org/wiki/Wake-on-LAN
 	 * 
-	 * @param macAddress
+	 * @param mac
 	 * 
 	 * @return
 	 */
-	public static byte[] buildMagicPacket(String macAddress) {
+	public static byte[] buildMagicPacket(String mac) {
 		// Remove any colons or dashes in the MAC. It should just be the hex values
-		macAddress = macAddress.replace(":", "").replace("-", "");
-
-		// Build Magic Packet
-		String magicPacketBuilder = "";
+		mac = mac.replace(":", "").replace("-", "");
 		byte[] magicPacket = new byte[102];
 
-		// First 6 bytes are 0xff
-		// Next are 16 copies of the MAC address of the machine to enable
+		// The first 6 bytes are 0xFF, and then add 16 copies of the MAC Address to create the magic packet
+		String magicPacketBuilder = "";
 		magicPacketBuilder = "FF".repeat(6);
-		magicPacketBuilder += macAddress.repeat(16);
+		magicPacketBuilder += mac.repeat(16);
 
-		// Convert to a byte array
+		// Convert the string to a byte array
 		try {
-			magicPacket = HexFormat.of().parseHex(magicPacketBuilder);
+			magicPacket = hexStringToByteArray(magicPacketBuilder);
 
 		} catch (Exception ex) {
-			Output.fatalError("Could not build magic packet\nAre you sure the entered MAC address is correct? '" + macAddress + "'", 2);
+			Output.fatalError("Could not build magic packet\nAre you sure the entered MAC address is correct? '" + mac + "'", 2);
 		}
 
 		// Verify the size of the magic packet is 102 bytes
 		if (magicPacket.length != 102) {
 			Output.fatalError("The size of Magic Packet is not 102 bytes. It is " + magicPacket.length
-					+ " bytes\nAre you sure the entered MAC address is correct? '" + macAddress + "'", 2);
+					+ " bytes\nAre you sure the entered MAC address is correct? '" + mac + "'", 2);
 		}
-		
+
 		return (magicPacket);
 	}
-	
-	
+
 	/**
-	 * wakeDevice(): Send the magic packet to wake the device
+	 * wakeDevice(): Broadcast the magic packet to wake the device
 	 * 
 	 * @param macAddress
 	 * @param broadcastIP
@@ -86,11 +81,11 @@ public class WakeOnLan {
 		byte[] magicPacket = buildMagicPacket(macAddress);
 		DatagramSocket socket = null;
 		InetAddress destAddress = null;
-		
+
 		try {
 			destAddress = InetAddress.getByName(broadcastIP);
 			socket = new DatagramSocket();
-			
+
 			// Create the packet and broadcast it
 			DatagramPacket packet = new DatagramPacket(magicPacket, magicPacket.length, destAddress, port);
 			socket.send(packet);
@@ -98,10 +93,31 @@ public class WakeOnLan {
 			socket.close();
 
 		} catch (Exception ex) {
-			Output.fatalError("Could not send magic packet to destination",  3);
+			Output.fatalError("Could not send magic packet to destination", 3);
 		}
-		
-				
+
+	}
+
+	/**
+	 * hexStringToByteArray(): Convert the provided string to a byte array
+	 * 
+	 * Note: Because Snapcraft can't use java 17 yet and java.util.HexFormat.of().parseHex
+	 * 
+	 * Thanks to Dave L. at Stackoverflow for this solution
+	 * https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static byte[] hexStringToByteArray(String s) {
+		int len = s.length();
+		byte[] data = new byte[len / 2];
+
+		for (int i = 0; i < len; i += 2) {
+			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+		}
+
+		return data;
 	}
 
 }

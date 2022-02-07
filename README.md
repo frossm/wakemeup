@@ -23,6 +23,13 @@ Currently, it also doesn't have the ability to manage Wake-On-LAN devices that a
 |-z|Remove colors from the output|
 |-? or -h| Show Usage information.  Either `-h` or `-?` wil work|
 
+## Favorites
+WakeMeUp's arguments are favorite devices that you create.  Each of these will include the Name, the MAC Address, and the Broadcast IP.  When you execute WakeMeUp, you'll provide one or more favorite names.
+
+The first time you run it with a name, it will check to see if that name entry exists.  If not, it will prompt you for the above mentioned details and then add it to the favorites list.  From then on, you won't be asked for the details and it will just execute.
+
+To see a list of these favorites, use the `-l` switch, and you can `c` clear the entire list or just `d` a single entry.
+
 ## SNAP
 
 [![wakemeup](https://snapcraft.io/wakemeup/badge.svg)](https://snapcraft.io/wakemeup)
