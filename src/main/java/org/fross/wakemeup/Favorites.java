@@ -76,7 +76,7 @@ public class Favorites {
 				cancelOperation = true;
 			}
 		}
-		
+
 		scanner.close();
 
 		// Add name to preferences in format: macAddress!broadcastIP
@@ -93,6 +93,8 @@ public class Favorites {
 
 	/**
 	 * getNameDetails(): Return a string array with the MAC Address and Broadcast IP
+	 * 
+	 * Return: MAC Address is element [0]. Broadcast IP is element [1]
 	 * 
 	 * @param name
 	 * @return
@@ -146,6 +148,7 @@ public class Favorites {
 	public static void clearAll() {
 		try {
 			prefs.clear();
+
 		} catch (BackingStoreException ex) {
 			Output.printColorln(Ansi.Color.RED, "Could not clear favorites");
 			ex.getMessage();
@@ -161,6 +164,7 @@ public class Favorites {
 		String[] keys = {};
 		try {
 			keys = prefs.keys();
+
 		} catch (BackingStoreException ex) {
 			Output.printColorln(Ansi.Color.RED, "ERROR: Could not retrieve favorite names from preferences");
 		}

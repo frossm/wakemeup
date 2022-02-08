@@ -53,7 +53,7 @@ public class Help {
 
 		Output.printColorln(Ansi.Color.YELLOW, "\nUsage:");
 		Output.printColorln(Ansi.Color.WHITE, "java -jar wakemeup [-OPTIONS] Name1 [Name2...]");
-		Output.printColorln(Ansi.Color.WHITE, "SNAP: wakemeup [-OPTIONS] Name1 [Name2...]");
+		Output.printColorln(Ansi.Color.WHITE, "\nSNAP: wakemeup [-OPTIONS] Name1 [Name2...]");
 
 		Output.printColorln(Ansi.Color.YELLOW, "\nCommand Line Options:");
 		Output.printColorln(Ansi.Color.WHITE, " -D       Start in debug mode.  Same as using the 'debug' command");
@@ -65,8 +65,8 @@ public class Help {
 		Output.printColorln(Ansi.Color.WHITE, " -h | ?   Show this help information.  Either key will work.");
 
 		Output.printColorln(Ansi.Color.YELLOW, "\nNotes:");
-		Output.printColorln(Ansi.Color.WHITE, " - If name provided is not saved, it will prompt to add it");
+		Output.printColorln(Ansi.Color.WHITE, " - If the name provided is not saved, it will prompt to add it");
 		Output.printColorln(Ansi.Color.WHITE, " - Favorite names are saved in the Java preferences system and can be edited directly");
-		Output.printColorln(Ansi.Color.WHITE, " - Names are NOT case sensitive");
+		Output.printColorln(Ansi.Color.WHITE, " - Names are not case sensitive");
 	}
 }

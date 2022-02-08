@@ -98,9 +98,7 @@ public class Main {
 				Output.printColorln(Ansi.Color.WHITE, "Current Favorites");
 				for (String i : Favorites.queryFavorites()) {
 					String[] nameDetail = Favorites.getNameDetails(i);
-					macAddress = nameDetail[0];
-					broadcastIP = nameDetail[1];
-					Output.printColorln(Ansi.Color.CYAN, i + "\t" + macAddress + "  " + broadcastIP);
+					Output.printColorln(Ansi.Color.CYAN, i + "\t" + nameDetail[0] + "  " + nameDetail[1]);
 				}
 				System.exit(0);
 				break;

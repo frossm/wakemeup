@@ -93,7 +93,7 @@ public class WakeOnLan {
 			socket.close();
 
 		} catch (Exception ex) {
-			Output.fatalError("Could not send magic packet to destination", 3);
+			Output.fatalError("Could not broadcast magic packet to destination", 3);
 		}
 
 	}
@@ -101,9 +101,9 @@ public class WakeOnLan {
 	/**
 	 * hexStringToByteArray(): Convert the provided string to a byte array
 	 * 
-	 * Note: Because Snapcraft can't use java 17 yet and java.util.HexFormat.of().parseHex
+	 * Note: Because Snapcraft can't use java 17 yet which is needed for java.util.HexFormat.of().parseHex
 	 * 
-	 * Thanks to Dave L. at Stackoverflow for this solution
+	 * Thanks to Dave L. over at Stackoverflow for this solution
 	 * https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
 	 * 
 	 * @param s
