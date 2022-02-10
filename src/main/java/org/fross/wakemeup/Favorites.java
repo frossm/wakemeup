@@ -139,6 +139,8 @@ public class Favorites {
 	 * @param name
 	 */
 	public static void deleteName(String name) {
+		// Make the name non-case sensitive
+		name = name.trim().toLowerCase();
 		prefs.remove(name);
 	}
 

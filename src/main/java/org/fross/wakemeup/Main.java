@@ -71,7 +71,7 @@ public class Main {
 		}
 
 		// Process Command Line Options and set flags where needed
-		Getopt optG = new Getopt("RPNCalc", args, "Dd:clvzh?");
+		Getopt optG = new Getopt("WakeMeUp", args, "Dd:clvzh?");
 		while ((optionEntry = optG.getopt()) != -1) {
 			switch (optionEntry) {
 
@@ -82,7 +82,9 @@ public class Main {
 
 			// Delete Favorite
 			case 'd':
-				Favorites.deleteName(optG.getOptarg());
+				String name = optG.getOptarg();
+				Output.printColorln(Ansi.Color.YELLOW, "Removing " + name + " from favorites if it exists");
+				Favorites.deleteName(name);
 				System.exit(0);
 				break;
 
