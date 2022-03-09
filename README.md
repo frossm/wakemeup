@@ -1,8 +1,6 @@
 <p align="center"> <img width="80%" src ="https://github.com/frossm/wakemeup/blob/master/graphics/ScreenShot.jpg"> </p> 
 
-## INTRODUCTION
-
-## WakeMeUp
+# INTRODUCTION
 
 <img align="right" width="200" src="https://github.com/frossm/wakemeup/blob/master/graphics/PostIt512.jpg">WakeMeUp is a tiny utility to wake up a Wake-On-LAN device from it's standby mode.  It creates the "magic packet" and will broadcast it to the device.
 

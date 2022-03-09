@@ -44,9 +44,10 @@ public class WakeOnLan {
 	 * @return
 	 */
 	public static byte[] buildMagicPacket(String mac) {
+		byte[] magicPacket = new byte[102];
+		
 		// Remove any colons or dashes in the MAC. It should just be the hex values
 		mac = mac.replace(":", "").replace("-", "");
-		byte[] magicPacket = new byte[102];
 
 		// The first 6 bytes are 0xFF, and then add 16 copies of the MAC Address to create the magic packet
 		String magicPacketBuilder = "";
@@ -58,13 +59,13 @@ public class WakeOnLan {
 			magicPacket = hexStringToByteArray(magicPacketBuilder);
 
 		} catch (Exception ex) {
-			Output.fatalError("Could not build magic packet\nAre you sure the entered MAC address is correct? '" + mac + "'", 2);
+			Output.fatalError("Could not build magic packet\nAre you sure the entered MAC address is correctly? '" + mac + "'", 2);
 		}
 
 		// Verify the size of the magic packet is 102 bytes
 		if (magicPacket.length != 102) {
 			Output.fatalError("The size of Magic Packet is not 102 bytes. It is " + magicPacket.length
-					+ " bytes\nAre you sure the entered MAC address is correct? '" + mac + "'", 2);
+					+ " bytes\nAre you sure the entered MAC address is correctly? '" + mac + "'", 2);
 		}
 
 		return (magicPacket);
@@ -101,9 +102,9 @@ public class WakeOnLan {
 	/**
 	 * hexStringToByteArray(): Convert the provided string to a byte array
 	 * 
-	 * Note: Because Snapcraft can't use java 17 yet which is needed for java.util.HexFormat.of().parseHex
+	 * Note: Snapcraft can't use java 17 yet which is needed for java.util.HexFormat.of().parseHex. So this should cover it
 	 * 
-	 * Thanks to Dave L. over at Stackoverflow for this solution
+	 * Thanks to Dave L. over at Stackoverflow for this function
 	 * https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
 	 * 
 	 * @param s
