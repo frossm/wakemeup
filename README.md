@@ -1,8 +1,8 @@
-<p align="center"> <img width="80%" src ="https://github.com/frossm/wakemeup/blob/master/graphics/ScreenShot.jpg"> </p> 
+<p align="center"> <img width="80%" src ="https://github.com/frossm/wakemeup/raw/master/graphics/ScreenShot.jpg"> </p> 
 
 # INTRODUCTION
 
-<img align="right" width="200" src="https://github.com/frossm/wakemeup/blob/master/graphics/PostIt512.jpg">WakeMeUp is a tiny utility to wake up a Wake-On-LAN device from it's standby mode.  It creates the "magic packet" and will broadcast it to the device.
+<img align="right" width="200" src="https://github.com/frossm/wakemeup/raw/master/graphics/PostIt512.jpg">WakeMeUp is a tiny utility to wake up a Wake-On-LAN device from it's standby mode.  It creates the "magic packet" and will broadcast it to the device.
 
 This is done be creating a favorite and providing it the MAC Address and the Broadcast IP.  This, along with the name, is saved in the JAVA preferences system so you should only have to enter it once.
 
