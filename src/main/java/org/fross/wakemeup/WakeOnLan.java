@@ -3,7 +3,7 @@
  * 
  * WakeMeUp is a utility to power on a Wake-On-Lan enabled device on standby
  * 
- *  Copyright (c) 2022 Michael Fross
+ *  Copyright (c) 2022-2024 Michael Fross
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
